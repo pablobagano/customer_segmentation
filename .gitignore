@@ -1,0 +1,48 @@
+# Jupyter Notebook
+.ipynb_checkpoints/
+*/.ipynb_checkpoints/*
+*.ipynb_checkpoints
+
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.egg
+*.egg-info/
+dist/
+build/
+.eggs/
+
+# Virtual environments
+.env
+.venv
+env/
+venv/
+ENV/
+
+# Distribution / packaging
+*.so
+*.whl
+
+# Data files (common large/sensitive formats)
+*.csv
+*.parquet
+*.feather
+*.h5
+*.hdf5
+*.pkl
+*.pickle
+*.db
+*.sqlite
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+
+# Anaconda
+anaconda_projects/
