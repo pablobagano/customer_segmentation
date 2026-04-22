@@ -27,7 +27,6 @@ ENV/
 *.whl
 
 # Data files (common large/sensitive formats)
-*.csv
 *.parquet
 *.feather
 *.h5
