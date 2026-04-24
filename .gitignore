@@ -1,0 +1,55 @@
+# Jupyter Notebook
+.ipynb_checkpoints/
+*/.ipynb_checkpoints/*
+*.ipynb_checkpoints
+notebooks/drafts.ipynb
+
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.egg
+*.egg-info/
+dist/
+build/
+.eggs/
+
+# Virtual environments
+.env
+.venv
+env/
+venv/
+ENV/
+
+# Distribution / packaging
+*.so
+*.whl
+
+# Data files (common large/sensitive formats)
+*.parquet
+*.feather
+*.h5
+*.hdf5
+*.pkl
+*.pickle
+*.db
+*.sqlite
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+
+# Anaconda
+anaconda_projects/
+
+# BigQuery artefacts (local-only instructions)
+bigquery/instructions.json
+bigquery/bq_instructions.json
+
+# Notebooks excluded from version control
+notebooks/database_expansion.ipynb
