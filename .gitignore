@@ -2,7 +2,7 @@
 .ipynb_checkpoints/
 */.ipynb_checkpoints/*
 *.ipynb_checkpoints
-drafts.ipynb
+notebooks/drafts.ipynb
 
 # Python
 __pycache__/
@@ -46,5 +46,10 @@ Thumbs.db
 
 # Anaconda
 anaconda_projects/
-instructions.json
-database_expansion.ipynb
+
+# BigQuery artefacts (local-only instructions)
+bigquery/instructions.json
+bigquery/bq_instructions.json
+
+# Notebooks excluded from version control
+notebooks/database_expansion.ipynb
