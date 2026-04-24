@@ -1,0 +1,90 @@
+Marital_Status,Education,Highest_Spent,proportion
+Divorced,2n Cycle,Wines,0.5454545454545454
+Divorced,2n Cycle,Gold,0.18181818181818182
+Divorced,2n Cycle,Meat,0.13636363636363635
+Divorced,2n Cycle,Fish,0.13636363636363635
+Divorced,Basic,Fish,1.0
+Divorced,Graduation,Wines,0.680672268907563
+Divorced,Graduation,Meat,0.226890756302521
+Divorced,Graduation,Gold,0.058823529411764705
+Divorced,Graduation,Fish,0.01680672268907563
+Divorced,Graduation,Sweet,0.01680672268907563
+Divorced,Master,Wines,0.8378378378378378
+Divorced,Master,Meat,0.16216216216216217
+Divorced,PhD,Wines,0.8076923076923077
+Divorced,PhD,Meat,0.1346153846153846
+Divorced,PhD,Gold,0.057692307692307696
+Married,2n Cycle,Wines,0.38271604938271603
+Married,2n Cycle,Meat,0.30864197530864196
+Married,2n Cycle,Gold,0.19753086419753085
+Married,2n Cycle,Fish,0.08641975308641975
+Married,2n Cycle,Fruits,0.024691358024691357
+Married,Basic,Gold,0.45
+Married,Basic,Fish,0.25
+Married,Basic,Sweet,0.15
+Married,Basic,Fruits,0.05
+Married,Basic,Wines,0.05
+Married,Basic,Meat,0.05
+Married,Graduation,Wines,0.651270207852194
+Married,Graduation,Meat,0.22632794457274827
+Married,Graduation,Gold,0.06928406466512702
+Married,Graduation,Fish,0.03233256351039261
+Married,Graduation,Sweet,0.011547344110854504
+Married,Graduation,Fruits,0.009237875288683603
+Married,Master,Wines,0.8043478260869565
+Married,Master,Meat,0.15217391304347827
+Married,Master,Gold,0.043478260869565216
+Married,PhD,Wines,0.8854166666666666
+Married,PhD,Meat,0.10416666666666667
+Married,PhD,Gold,0.010416666666666666
+Single,2n Cycle,Wines,0.5
+Single,2n Cycle,Meat,0.25
+Single,2n Cycle,Gold,0.2222222222222222
+Single,2n Cycle,Fish,0.027777777777777776
+Single,Basic,Gold,0.5555555555555556
+Single,Basic,Fish,0.16666666666666666
+Single,Basic,Fruits,0.16666666666666666
+Single,Basic,Sweet,0.1111111111111111
+Single,Graduation,Wines,0.6023622047244095
+Single,Graduation,Meat,0.2755905511811024
+Single,Graduation,Gold,0.09055118110236221
+Single,Graduation,Fish,0.023622047244094488
+Single,Graduation,Fruits,0.007874015748031496
+Single,Master,Wines,0.7532467532467533
+Single,Master,Meat,0.18181818181818182
+Single,Master,Gold,0.06493506493506493
+Single,PhD,Wines,0.8217821782178217
+Single,PhD,Meat,0.1485148514851485
+Single,PhD,Gold,0.019801980198019802
+Single,PhD,Sweet,0.009900990099009901
+Together,2n Cycle,Wines,0.5263157894736842
+Together,2n Cycle,Gold,0.19298245614035087
+Together,2n Cycle,Meat,0.17543859649122806
+Together,2n Cycle,Fish,0.07017543859649122
+Together,2n Cycle,Sweet,0.03508771929824561
+Together,Basic,Gold,0.5714285714285714
+Together,Basic,Fish,0.2857142857142857
+Together,Basic,Meat,0.07142857142857142
+Together,Basic,Fruits,0.07142857142857142
+Together,Graduation,Wines,0.6701754385964912
+Together,Graduation,Meat,0.23157894736842105
+Together,Graduation,Gold,0.07017543859649122
+Together,Graduation,Fish,0.02456140350877193
+Together,Graduation,Fruits,0.0035087719298245615
+Together,Master,Wines,0.8018867924528302
+Together,Master,Meat,0.16037735849056603
+Together,Master,Gold,0.02830188679245283
+Together,Master,Sweet,0.009433962264150943
+Together,PhD,Wines,0.8803418803418803
+Together,PhD,Meat,0.11965811965811966
+Widow,2n Cycle,Wines,0.6
+Widow,2n Cycle,Meat,0.4
+Widow,Basic,Fish,1.0
+Widow,Graduation,Wines,0.6571428571428571
+Widow,Graduation,Meat,0.2857142857142857
+Widow,Graduation,Fruits,0.02857142857142857
+Widow,Graduation,Fish,0.02857142857142857
+Widow,Master,Wines,0.8333333333333334
+Widow,Master,Meat,0.16666666666666666
+Widow,PhD,Wines,0.8333333333333334
+Widow,PhD,Meat,0.16666666666666666
