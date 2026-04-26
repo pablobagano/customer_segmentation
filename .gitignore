@@ -53,3 +53,6 @@ bigquery/bq_instructions.json
 
 # Notebooks excluded from version control
 notebooks/database_expansion.ipynb
+
+# Dashboard scratch / junk (not for GitHub)
+dash_junk/
