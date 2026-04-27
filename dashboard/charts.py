@@ -51,6 +51,18 @@ COLOR_BY_EDUCATION = {
     "Basic": "#9467bd",
 }
 
+# RFM segment ordering — used everywhere segments are sorted or colored.
+SEGMENT_ORDER = ["Inactive", "Occasional", "Moderate", "Loyal", "Premium"]
+
+# Stable palette mapping segment → color (low tier → cool/gray, high tier → warm).
+SEGMENT_PALETTE = {
+    "Inactive": "#bdbdbd",
+    "Occasional": "#aec7e8",
+    "Moderate": "#1f77b4",
+    "Loyal": "#ff7f0e",
+    "Premium": "#d62728",
+}
+
 # Used for product-category charts (Wines / Fruits / Meat / Fish / Sweet / Gold).
 PRODUCT_PALETTE = px.colors.qualitative.Plotly
 
@@ -104,6 +116,8 @@ def _color_map_for(dimension: str) -> dict | None:
         return COLOR_BY_MARITAL
     if dimension == "Education":
         return COLOR_BY_EDUCATION
+    if dimension == "Segmentation":
+        return SEGMENT_PALETTE
     return None
 
 
@@ -590,3 +604,199 @@ def cross_top_decile_profile(df: pd.DataFrame) -> go.Figure:
         polar=dict(radialaxis=dict(visible=True, range=[0, 1])),
     )
     return _apply_theme(fig)
+
+
+# --------------------------------------------------------------------------- #
+# 7. Cluster Explorer — RFM segmentation views
+# --------------------------------------------------------------------------- #
+
+def cluster_3d_scatter(
+    df: pd.DataFrame,
+    color_by: str = "Segmentation",
+) -> go.Figure:
+    """
+    3D scatter of customers in RFM space.
+
+    Axes are fixed: ``Total_Purchases`` (Frequency) → x, ``Recency`` → y,
+    ``Total_Spent`` (Monetary) → z. ``color_by`` accepts ``Segmentation`` or
+    any per-component cluster column (``Cluster_Recency``,
+    ``Cluster_Frequency``, ``Cluster_Monetary``).
+    """
+    plot_df = df.copy()
+
+    # Cluster_* columns are integer labels — cast to str so px treats them
+    # as discrete categories rather than a continuous color scale.
+    if color_by.startswith("Cluster_"):
+        plot_df[color_by] = plot_df[color_by].astype(str)
+
+    color_map = _color_map_for(color_by)
+    category_orders = (
+        {color_by: SEGMENT_ORDER} if color_by == "Segmentation" else None
+    )
+
+    fig = px.scatter_3d(
+        plot_df,
+        x="Total_Purchases",
+        y="Recency",
+        z="Total_Spent",
+        color=color_by,
+        color_discrete_map=color_map,
+        category_orders=category_orders,
+        opacity=0.55,
+        hover_data=["ID", "RMF_Score", "Age", "Income"],
+    )
+    fig.update_traces(marker=dict(size=4))
+    fig.update_layout(
+        title=f"RFM space — {len(plot_df):,} customers, colored by {color_by}",
+        scene=dict(
+            xaxis_title="Frequency (Total_Purchases)",
+            yaxis_title="Recency (days)",
+            zaxis_title="Monetary (Total_Spent)",
+        ),
+    )
+    return _apply_theme(fig, height=600)
+
+
+def cluster_pairwise_2d(
+    df: pd.DataFrame,
+    x_dim: str,
+    y_dim: str,
+    color_by: str = "Segmentation",
+) -> go.Figure:
+    """
+    2D scatter for one pair of RFM dimensions, colored by ``color_by``.
+    Page typically calls this three times (R-F, R-M, F-M) for pairwise views.
+    """
+    axis_labels = {
+        "Total_Purchases": "Frequency",
+        "Recency": "Recency (days)",
+        "Total_Spent": "Monetary",
+    }
+    color_map = _color_map_for(color_by)
+    category_orders = (
+        {color_by: SEGMENT_ORDER} if color_by == "Segmentation" else None
+    )
+
+    fig = px.scatter(
+        df,
+        x=x_dim, y=y_dim,
+        color=color_by,
+        color_discrete_map=color_map,
+        category_orders=category_orders,
+        opacity=0.5,
+    )
+    fig.update_traces(marker=dict(size=6))
+    fig.update_layout(
+        title=f"{axis_labels.get(x_dim, x_dim)} × {axis_labels.get(y_dim, y_dim)}",
+        xaxis_title=axis_labels.get(x_dim, x_dim),
+        yaxis_title=axis_labels.get(y_dim, y_dim),
+    )
+    return _apply_theme(fig)
+
+
+def segment_count_bar(df: pd.DataFrame) -> go.Figure:
+    """Customer count per segment, ordered Inactive → Premium."""
+    counts = df["Segmentation"].value_counts().reindex(SEGMENT_ORDER, fill_value=0)
+    pct = counts / counts.sum() * 100
+    fig = go.Figure(go.Bar(
+        x=counts.index.tolist(),
+        y=counts.values,
+        text=[f"{int(c):,} ({p:.1f}%)" for c, p in zip(counts.values, pct)],
+        textposition="outside",
+        marker_color=[SEGMENT_PALETTE[s] for s in counts.index],
+    ))
+    fig.update_layout(
+        title="Customers per segment",
+        xaxis_title="Segment",
+        yaxis_title="Customers",
+    )
+    return _apply_theme(fig)
+
+
+def segment_scorecard(
+    segment_df: pd.DataFrame,
+    baseline_df: pd.DataFrame,
+) -> dict:
+    """
+    Per-segment KPIs returned as raw values alongside the baseline (overall
+    population) values — the page formats and renders deltas via ``st.metric``.
+
+    Returns
+    -------
+    dict
+        ``customers``, ``baseline_customers``, plus paired
+        ``avg_*`` / ``avg_*_baseline`` values for ``rfm``, ``total_spent``,
+        ``total_purchases``, ``recency``, ``apv``, and ``response_rate``.
+    """
+    return {
+        "customers": int(len(segment_df)),
+        "baseline_customers": int(len(baseline_df)),
+        "avg_rfm": float(segment_df["RMF_Score"].mean()),
+        "avg_rfm_baseline": float(baseline_df["RMF_Score"].mean()),
+        "avg_total_spent": float(segment_df["Total_Spent"].mean()),
+        "avg_total_spent_baseline": float(baseline_df["Total_Spent"].mean()),
+        "avg_total_purchases": float(segment_df["Total_Purchases"].mean()),
+        "avg_total_purchases_baseline": float(baseline_df["Total_Purchases"].mean()),
+        "avg_recency": float(segment_df["Recency"].mean()),
+        "avg_recency_baseline": float(baseline_df["Recency"].mean()),
+        "avg_apv": float(segment_df["APV"].mean()),
+        "avg_apv_baseline": float(baseline_df["APV"].mean()),
+        "response_rate": float(segment_df["Response"].mean()),
+        "response_rate_baseline": float(baseline_df["Response"].mean()),
+    }
+
+
+def segments_comparison_df(df: pd.DataFrame) -> pd.DataFrame:
+    """
+    Per-segment summary DataFrame for tabular display. Returns the raw frame —
+    the page applies ``.style`` formatting and conditional gradients.
+    """
+    grouped = df.groupby("Segmentation").agg(
+        Customers=("ID", "count"),
+        Avg_RFM_Score=("RMF_Score", "mean"),
+        Avg_Recency=("Recency", "mean"),
+        Avg_Frequency=("Total_Purchases", "mean"),
+        Avg_Monetary=("Total_Spent", "mean"),
+        Avg_APV=("APV", "mean"),
+        Response_Rate=("Response", "mean"),
+    ).reindex(SEGMENT_ORDER)
+
+    grouped.insert(1, "Share", grouped["Customers"] / grouped["Customers"].sum())
+    return grouped
+
+
+def segments_parallel_coords(df: pd.DataFrame) -> go.Figure:
+    """
+    Parallel coordinates plot showing how segments differ across RFM features
+    simultaneously. Each line is a customer, colored by segment tier.
+    """
+    segment_to_int = {s: i for i, s in enumerate(SEGMENT_ORDER)}
+    plot_df = df[
+        ["RMF_Score", "Recency", "Total_Purchases", "Total_Spent", "APV", "Segmentation"]
+    ].copy()
+    plot_df["Segment_Code"] = plot_df["Segmentation"].map(segment_to_int)
+
+    # Build a 5-stop continuous color scale that lines up with SEGMENT_ORDER.
+    n = len(SEGMENT_ORDER)
+    colorscale = [
+        [i / (n - 1), SEGMENT_PALETTE[s]]
+        for i, s in enumerate(SEGMENT_ORDER)
+    ]
+
+    fig = px.parallel_coordinates(
+        plot_df,
+        dimensions=["Recency", "Total_Purchases", "Total_Spent", "APV", "RMF_Score"],
+        color="Segment_Code",
+        color_continuous_scale=colorscale,
+    )
+    fig.update_layout(
+        title="Segment trajectories across RFM features",
+        coloraxis=dict(
+            colorbar=dict(
+                title="Segment",
+                tickvals=list(range(n)),
+                ticktext=SEGMENT_ORDER,
+            ),
+        ),
+    )
+    return _apply_theme(fig, height=500)
