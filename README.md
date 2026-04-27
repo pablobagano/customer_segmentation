@@ -6,6 +6,11 @@ dataset. The project covers exploratory analysis, RFM scoring with K-Means,
 synthetic data expansion for BigQuery, and an interactive Streamlit dashboard
 aimed at a business audience.
 
+## Streamlit Apps
+Streamlit App for K-Means Segmentation: (https://pablobagano-customersegmentation.streamlit.app/)
+
+Streamlit App For `Total_Spent` Predicition: Model under construction
+
 ## Pipeline
 
 ```
@@ -92,7 +97,8 @@ customer attributes without touching the underlying code. It will consume
 
 - [x] Exploratory data analysis and cleaning
 - [x] RFM scoring with K-Means
-- [x] Database expansion for scale testing
+- [x] Dashboard For Clustering Segmentation
+- [ ] Database expansion for scale testing
 - [ ] XGBoost regression to predict `Total_Spent` for new customers
 - [ ] BigQuery ML pipeline (KMeans + XGBoost + segmentation SQL)
 - [ ] Streamlit dashboard
