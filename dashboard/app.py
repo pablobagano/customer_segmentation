@@ -76,9 +76,9 @@ with left:
 
 with right:
     with st.container(border=True):
-        st.markdown("#### Segments overview")
-        st.caption("Per-segment summary: size, RFM averages, recommended actions.")
-        st.page_link("pages/2_Segments_Overview.py", label="Open segments overview")
+        st.markdown("#### Cleaned Data")
+        st.caption("Explore the data after cleaning")
+        st.page_link("pages/2_Cleaned_Data.py", label="Open segments overview")
 
     with st.container(border=True):
         st.markdown("#### Customer lookup")
