@@ -7,7 +7,7 @@ synthetic data expansion for BigQuery, and an interactive Streamlit dashboard
 aimed at a business audience.
 
 ## Streamlit Apps
-Streamlit App for K-Means Segmentation: (https://pablobagano-customersegmentation.streamlit.app/)
+[Streamlit App for K-Means Segmentation](https://pablobagano-customersegmentation.streamlit.app/)
 
 Streamlit App For `Total_Spent` Predicition: Model under construction
 
