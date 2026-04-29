@@ -800,3 +800,315 @@ def segments_parallel_coords(df: pd.DataFrame) -> go.Figure:
         ),
     )
     return _apply_theme(fig, height=500)
+
+
+# --------------------------------------------------------------------------- #
+# 8. Customer Lookup — single-customer drill-down
+# --------------------------------------------------------------------------- #
+
+# Radar axes used for customer-vs-segment-vs-population comparison.
+# Recency is *inverted* during normalization so all axes read "higher is better".
+LOOKUP_RADAR_FEATURES = [
+    "Recency",
+    "Total_Purchases",
+    "Total_Spent",
+    "Income",
+    "APV",
+    "Campaigns_Accepted",
+]
+LOOKUP_RADAR_LABELS = {
+    "Recency": "Recency<br>(inverted)",
+    "Total_Purchases": "Frequency",
+    "Total_Spent": "Monetary",
+    "Income": "Income",
+    "APV": "Avg purchase<br>value",
+    "Campaigns_Accepted": "Campaigns<br>accepted",
+}
+
+
+def _customer_row(df: pd.DataFrame, customer_id: int) -> pd.Series:
+    """Return the single customer row, or raise ``KeyError``."""
+    matches = df.loc[df["ID"] == customer_id]
+    if len(matches) == 0:
+        raise KeyError(f"Customer ID {customer_id} not found")
+    return matches.iloc[0]
+
+
+def lookup_kpis(df: pd.DataFrame, customer_id: int) -> dict:
+    """
+    Profile + RFM scorecard values for a single customer, plus segment-median
+    baselines so the page can render ``st.metric`` deltas.
+
+    Returns
+    -------
+    dict
+        Identity (``id``, ``age``, ``income``, ``education``, ``marital_status``,
+        ``kidhome``, ``teenhome``, ``total_kids``, ``dt_customer``,
+        ``tenure_years``), segment label (``segmentation``), RFM raw values
+        and component scores, ``apv``, ``campaigns_accepted``, and
+        ``*_seg_median`` / ``*_pop_median`` baselines for Recency, Frequency,
+        Monetary, APV, RFM, and Income.
+    """
+    row = _customer_row(df, customer_id)
+    seg = row["Segmentation"]
+    seg_df = df[df["Segmentation"] == seg]
+    campaigns_accepted = int(row[CAMPAIGN_COLS].sum())
+
+    # Tenure relative to the latest enrollment date in the dataset.
+    tenure_days = (df["Dt_Customer"].max() - row["Dt_Customer"]).days
+    tenure_years = tenure_days / 365.25
+
+    return {
+        # Identity
+        "id": int(row["ID"]),
+        "age": int(row["Age"]),
+        "income": float(row["Income"]),
+        "education": str(row["Education"]),
+        "marital_status": str(row["Marital_Status"]),
+        "kidhome": int(row["Kidhome"]),
+        "teenhome": int(row["Teenhome"]),
+        "total_kids": int(row["Kidhome"] + row["Teenhome"]),
+        "dt_customer": row["Dt_Customer"],
+        "tenure_years": float(tenure_years),
+        # Segment
+        "segmentation": seg,
+        # RFM raw + component scores
+        "recency": int(row["Recency"]),
+        "recency_score": int(row["Recency_Score"]),
+        "frequency": int(row["Total_Purchases"]),
+        "frequency_score": int(row["Frequency_Score"]),
+        "monetary": float(row["Total_Spent"]),
+        "monetary_score": int(row["Monetary_Score"]),
+        "rfm_score": int(row["RMF_Score"]),
+        "apv": float(row["APV"]),
+        "campaigns_accepted": campaigns_accepted,
+        # Segment baselines (median for robustness)
+        "recency_seg_median": float(seg_df["Recency"].median()),
+        "frequency_seg_median": float(seg_df["Total_Purchases"].median()),
+        "monetary_seg_median": float(seg_df["Total_Spent"].median()),
+        "apv_seg_median": float(seg_df["APV"].median()),
+        "rfm_seg_median": float(seg_df["RMF_Score"].median()),
+        "income_seg_median": float(seg_df["Income"].median()),
+        # Population baselines
+        "recency_pop_median": float(df["Recency"].median()),
+        "frequency_pop_median": float(df["Total_Purchases"].median()),
+        "monetary_pop_median": float(df["Total_Spent"].median()),
+        "apv_pop_median": float(df["APV"].median()),
+        "rfm_pop_median": float(df["RMF_Score"].median()),
+        "income_pop_median": float(df["Income"].median()),
+    }
+
+
+def _normalize_for_radar(df: pd.DataFrame, values: pd.Series) -> pd.Series:
+    """
+    Min-max normalize each radar feature against the full population so that
+    every axis reads 0–1 with "higher is better". ``Recency`` is inverted.
+    """
+    norm = pd.Series(index=values.index, dtype=float)
+    for feat in values.index:
+        col = df[feat]
+        lo, hi = col.min(), col.max()
+        rng = hi - lo if hi > lo else 1.0
+        v = (values[feat] - lo) / rng
+        if feat == "Recency":
+            v = 1 - v  # lower recency → higher on the radar
+        norm[feat] = v
+    return norm
+
+
+def lookup_radar(df: pd.DataFrame, customer_id: int) -> go.Figure:
+    """
+    Radar chart with three traces: the customer, their segment median, and the
+    population median — all normalized 0–1 against the full population.
+    Recency is inverted so every axis reads "higher is better".
+    """
+    row = _customer_row(df, customer_id)
+    seg = row["Segmentation"]
+    seg_df = df[df["Segmentation"] == seg]
+
+    # Build per-customer Campaigns_Accepted on the fly.
+    work = df.copy()
+    work["Campaigns_Accepted"] = work[CAMPAIGN_COLS].sum(axis=1)
+    seg_work = work[work["Segmentation"] == seg]
+    customer_vals = work.loc[work["ID"] == customer_id, LOOKUP_RADAR_FEATURES].iloc[0]
+
+    seg_median = seg_work[LOOKUP_RADAR_FEATURES].median()
+    pop_median = work[LOOKUP_RADAR_FEATURES].median()
+
+    norm_customer = _normalize_for_radar(work, customer_vals)
+    norm_segment = _normalize_for_radar(work, seg_median)
+    norm_population = _normalize_for_radar(work, pop_median)
+
+    theta_labels = [LOOKUP_RADAR_LABELS[f] for f in LOOKUP_RADAR_FEATURES]
+    theta_closed = theta_labels + [theta_labels[0]]
+
+    seg_color = SEGMENT_PALETTE.get(seg, "#1f77b4")
+
+    fig = go.Figure()
+    fig.add_trace(go.Scatterpolar(
+        r=list(norm_population.values) + [norm_population.values[0]],
+        theta=theta_closed,
+        fill="toself",
+        name="Population median",
+        line=dict(color="#bdbdbd"),
+        opacity=0.55,
+    ))
+    fig.add_trace(go.Scatterpolar(
+        r=list(norm_segment.values) + [norm_segment.values[0]],
+        theta=theta_closed,
+        fill="toself",
+        name=f"{seg} median",
+        line=dict(color=seg_color),
+        opacity=0.55,
+    ))
+    fig.add_trace(go.Scatterpolar(
+        r=list(norm_customer.values) + [norm_customer.values[0]],
+        theta=theta_closed,
+        fill="toself",
+        name=f"Customer #{int(row['ID'])}",
+        line=dict(color="#222", width=2),
+        opacity=0.85,
+    ))
+    fig.update_layout(
+        title=f"Customer #{int(row['ID'])} vs {seg} median vs population median",
+        polar=dict(radialaxis=dict(visible=True, range=[0, 1])),
+    )
+    return _apply_theme(fig, height=460)
+
+
+def _bar_with_segment_marker(
+    customer_vals: pd.Series,
+    segment_means: pd.Series,
+    population_means: pd.Series,
+    *,
+    title: str,
+    x_title: str,
+    color: str,
+    label_map: dict | None = None,
+) -> go.Figure:
+    """
+    Horizontal bar of the customer's values, with diamond markers for the
+    segment mean and X markers for the population mean on each row.
+    """
+    labels = (
+        [label_map[c] for c in customer_vals.index]
+        if label_map
+        else list(customer_vals.index)
+    )
+
+    fig = go.Figure()
+    fig.add_trace(go.Bar(
+        x=customer_vals.values,
+        y=labels,
+        orientation="h",
+        name="Customer",
+        marker_color=color,
+        text=[f"{v:,.0f}" for v in customer_vals.values],
+        textposition="outside",
+    ))
+    fig.add_trace(go.Scatter(
+        x=segment_means.values,
+        y=labels,
+        mode="markers",
+        name="Segment mean",
+        marker=dict(symbol="diamond", size=12, color="#222",
+                    line=dict(color="white", width=1)),
+    ))
+    fig.add_trace(go.Scatter(
+        x=population_means.values,
+        y=labels,
+        mode="markers",
+        name="Population mean",
+        marker=dict(symbol="x", size=11, color="#888"),
+    ))
+    fig.update_layout(
+        title=title,
+        xaxis_title=x_title,
+        yaxis_title="",
+        bargap=0.35,
+    )
+    return _apply_theme(fig, height=380)
+
+
+def lookup_spend_vs_segment(df: pd.DataFrame, customer_id: int) -> go.Figure:
+    """
+    Customer's spend per product category, with segment-mean and population-mean
+    overlay markers.
+    """
+    row = _customer_row(df, customer_id)
+    seg = row["Segmentation"]
+    seg_df = df[df["Segmentation"] == seg]
+
+    label_map = {c: c.replace("Mnt", "").replace("Products", "").replace("Prods", "")
+                 for c in PRODUCT_COLS}
+
+    return _bar_with_segment_marker(
+        customer_vals=row[PRODUCT_COLS],
+        segment_means=seg_df[PRODUCT_COLS].mean(),
+        population_means=df[PRODUCT_COLS].mean(),
+        title=f"Spend per category — customer vs {seg} mean vs population",
+        x_title="Spend (USD, last 2y)",
+        color=SEGMENT_PALETTE.get(seg, "#1f77b4"),
+        label_map=label_map,
+    )
+
+
+def lookup_channels_vs_segment(df: pd.DataFrame, customer_id: int) -> go.Figure:
+    """
+    Customer's purchases per channel, with segment-mean and population-mean
+    overlay markers.
+    """
+    row = _customer_row(df, customer_id)
+    seg = row["Segmentation"]
+    seg_df = df[df["Segmentation"] == seg]
+    cols = list(CHANNEL_COLS.keys())
+
+    return _bar_with_segment_marker(
+        customer_vals=row[cols],
+        segment_means=seg_df[cols].mean(),
+        population_means=df[cols].mean(),
+        title=f"Purchases per channel — customer vs {seg} mean vs population",
+        x_title="Purchases (last 2y)",
+        color=SEGMENT_PALETTE.get(seg, "#1f77b4"),
+        label_map=CHANNEL_COLS,
+    )
+
+
+def lookup_3d_highlight(
+    df: pd.DataFrame,
+    customer_id: int,
+    color_by: str = "Segmentation",
+) -> go.Figure:
+    """
+    Reuses ``cluster_3d_scatter`` and adds a single large diamond marker for
+    the looked-up customer, so the user can see where that customer sits
+    relative to their segment cloud.
+    """
+    fig = cluster_3d_scatter(df, color_by=color_by)
+    row = _customer_row(df, customer_id)
+    fig.add_trace(go.Scatter3d(
+        x=[row["Total_Purchases"]],
+        y=[row["Recency"]],
+        z=[row["Total_Spent"]],
+        mode="markers",
+        name=f"Customer #{int(row['ID'])}",
+        marker=dict(
+            symbol="diamond",
+            size=10,
+            color="#000",
+            line=dict(color="white", width=2),
+        ),
+        hovertemplate=(
+            f"<b>Customer #{int(row['ID'])}</b><br>"
+            f"Segment: {row['Segmentation']}<br>"
+            f"Recency: {int(row['Recency'])} days<br>"
+            f"Frequency: {int(row['Total_Purchases'])}<br>"
+            f"Monetary: ${row['Total_Spent']:,.0f}<extra></extra>"
+        ),
+    ))
+    fig.update_layout(
+        title=f"RFM space — customer #{int(row['ID'])} highlighted",
+    )
+    return fig
+
+
