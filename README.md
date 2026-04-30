@@ -98,10 +98,10 @@ customer attributes without touching the underlying code. It will consume
 - [x] Exploratory data analysis and cleaning
 - [x] RFM scoring with K-Means
 - [x] Dashboard For Clustering Segmentation
-- [ ] Database expansion for scale testing
+- [x] Database expansion for scale testing
 - [ ] XGBoost regression to predict `Total_Spent` for new customers
 - [ ] BigQuery ML pipeline (KMeans + XGBoost + segmentation SQL)
-- [ ] Streamlit dashboard
+- [x] Streamlit dashboard
 
 ## Dataset
 
