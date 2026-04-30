@@ -28,6 +28,7 @@ ENV/
 
 # Data files (common large/sensitive formats)
 *.parquet
+!data/synthetic_marketing_campaign.parquet
 *.feather
 *.h5
 *.hdf5
@@ -51,8 +52,6 @@ anaconda_projects/
 bigquery/instructions.json
 bigquery/bq_instructions.json
 
-# Notebooks excluded from version control
-notebooks/database_expansion.ipynb
-
 # Dashboard scratch / junk (not for GitHub)
 dash_junk/
+keys/
