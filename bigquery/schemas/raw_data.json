@@ -1,0 +1,137 @@
+[
+  {
+    "name": "ID",
+    "type": "INTEGER",
+    "mode": "NULLABLE"
+  },
+  {
+    "name": "Year_Birth",
+    "type": "INTEGER",
+    "mode": "NULLABLE"
+  },
+  {
+    "name": "Education",
+    "type": "STRING",
+    "mode": "NULLABLE"
+  },
+  {
+    "name": "Marital_Status",
+    "type": "STRING",
+    "mode": "NULLABLE"
+  },
+  {
+    "name": "Income",
+    "type": "FLOAT",
+    "mode": "NULLABLE"
+  },
+  {
+    "name": "Kidhome",
+    "type": "INTEGER",
+    "mode": "NULLABLE"
+  },
+  {
+    "name": "Teenhome",
+    "type": "INTEGER",
+    "mode": "NULLABLE"
+  },
+  {
+    "name": "Dt_Customer",
+    "type": "DATE",
+    "mode": "NULLABLE"
+  },
+  {
+    "name": "Recency",
+    "type": "INTEGER",
+    "mode": "NULLABLE"
+  },
+  {
+    "name": "MntWines",
+    "type": "INTEGER",
+    "mode": "NULLABLE"
+  },
+  {
+    "name": "MntFruits",
+    "type": "INTEGER",
+    "mode": "NULLABLE"
+  },
+  {
+    "name": "MntMeatProducts",
+    "type": "INTEGER",
+    "mode": "NULLABLE"
+  },
+  {
+    "name": "MntFishProducts",
+    "type": "INTEGER",
+    "mode": "NULLABLE"
+  },
+  {
+    "name": "MntSweetProducts",
+    "type": "INTEGER",
+    "mode": "NULLABLE"
+  },
+  {
+    "name": "MntGoldProds",
+    "type": "INTEGER",
+    "mode": "NULLABLE"
+  },
+  {
+    "name": "NumDealsPurchases",
+    "type": "INTEGER",
+    "mode": "NULLABLE"
+  },
+  {
+    "name": "NumWebPurchases",
+    "type": "INTEGER",
+    "mode": "NULLABLE"
+  },
+  {
+    "name": "NumCatalogPurchases",
+    "type": "INTEGER",
+    "mode": "NULLABLE"
+  },
+  {
+    "name": "NumStorePurchases",
+    "type": "INTEGER",
+    "mode": "NULLABLE"
+  },
+  {
+    "name": "NumWebVisitsMonth",
+    "type": "INTEGER",
+    "mode": "NULLABLE"
+  },
+  {
+    "name": "AcceptedCmp3",
+    "type": "INTEGER",
+    "mode": "NULLABLE"
+  },
+  {
+    "name": "AcceptedCmp4",
+    "type": "INTEGER",
+    "mode": "NULLABLE"
+  },
+  {
+    "name": "AcceptedCmp5",
+    "type": "INTEGER",
+    "mode": "NULLABLE"
+  },
+  {
+    "name": "AcceptedCmp1",
+    "type": "INTEGER",
+    "mode": "NULLABLE"
+  },
+  {
+    "name": "AcceptedCmp2",
+    "type": "INTEGER",
+    "mode": "NULLABLE"
+  },
+  {
+    "name": "Complain",
+    "type": "INTEGER",
+    "mode": "NULLABLE"
+  },
+  {
+    "name": "Response",
+    "type": "INTEGER",
+    "mode": "NULLABLE"
+  }
+]
