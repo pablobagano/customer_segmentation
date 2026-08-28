@@ -23,9 +23,10 @@ the upstream CSVs exist.
 ## Commands
 
 ```bash
-# Environment
+# Environment — .venv is the one env with both ML deps (scikit-learn, joblib)
+# AND google-cloud-bigquery together; needed for scripts/score_raw_data_table.py.
 python -m venv .venv && source .venv/bin/activate
-pip install -r requirements.txt              # notebook / analysis deps
+pip install -r requirements.txt              # notebook / analysis / BigQuery deps
 pip install -r dashboard/requirements.txt     # dashboard-only deps (separate, pinned)
 
 # Run the notebook pipeline (in order)
@@ -35,12 +36,18 @@ jupyter lab notebooks/
 # notebooks/database_expansion.ipynb    → data/synthetic_marketing_campaign.parquet
 # notebooks/big_query_dataset.ipynb     → BigQuery dataset/table creation + upload
 
+# Score the live BigQuery raw_data table with the trained K-Means models
+# (writes a new customer_segments table — see src/customer_scoring.py below)
+.venv/bin/python scripts/score_raw_data_table.py
+
 # Run the dashboard
 streamlit run dashboard/app.py
 ```
 
 There is no lint/test/build tooling configured in this repo — don't invent
-`pytest`/`ruff`/etc. invocations.
+`pytest`/`ruff`/etc. invocations. `pyrightconfig.json` points the editor's
+type checker at `.venv` and adds `src/` to `extraPaths` so it can resolve the
+flat-import convention used throughout (see below).
 
 ## Architecture
 
@@ -82,7 +89,7 @@ downstream CSV schema stable or update every consumer listed below.
   local-only planning notes (gitignored) — read them for pipeline context
   but don't treat them as authoritative once the code diverges.
 
-### `src/` — shared helpers imported by notebooks (via `sys.path.append('../src')`)
+### `src/` — shared helpers imported by notebooks and scripts (via `sys.path.append`)
 
 - `custom_functions.py` — `error_handling()`, a traceback-printing helper
   used in notebook exception handlers.
@@ -93,6 +100,36 @@ downstream CSV schema stable or update every consumer listed below.
   creation from a JSON schema file (skips if the table already exists;
   accepts optional `time_partitioning_field`/`time_partitioning_type`/
   `clustering_fields` kwargs).
+- `customer_scoring.py` — applies the trained `models/kmeans_*.joblib`
+  models to any DataFrame with `Total_Purchases`/`Total_Spent`/`Recency`
+  columns. `cluster_rank_map()` derives the cluster-id → 0–3 score mapping
+  generically from `cluster_centers_` (ascending for Frequency/Monetary,
+  descending for Recency) rather than hardcoding it, since the raw KMeans
+  cluster ids have no inherent order. `score_rfm()` reproduces
+  `customer_kmeans.ipynb`'s scoring logic (RMF_Score, Segmentation
+  thresholds, APV) as reusable functions instead of notebook-only code.
+
+### `scripts/` — one-off / re-runnable maintenance scripts
+
+Entry points (run with `.venv/bin/python scripts/<name>.py`, not imported).
+Both scripts read `.env` for `GOOGLE_CLOUD_PROJECT` /
+`GOOGLE_APPLICATION_CREDENTIALS` (`python-dotenv` isn't installed in every
+env, so each has its own tiny `_load_dotenv()` rather than depending on it).
+
+- `migrate_raw_data_partitioning.py` — recreates `raw_data` partitioned by
+  month on `Dt_Customer` and clustered on `Marital_Status, Education`
+  (BigQuery can't add partitioning/clustering to an existing table in
+  place). Already run against the live table.
+- `score_raw_data_table.py` — batch-scores every row of `raw_data` with
+  `src/customer_scoring.py`, computing `Total_Spent`/`Total_Purchases` in
+  BigQuery first (`raw_data` doesn't carry those — they're derived columns
+  excluded from the synthetic upload). Writes a **new**, separate
+  `customer_segments` table (partitioned by month on `Dt_Customer`,
+  clustered on `Segmentation`) rather than updating `raw_data` in place —
+  `raw_data` stays untouched as the source for future native BigQuery ML
+  work, so consumers join `customer_segments` back to `raw_data` by `ID`
+  when they need the other raw columns. Code-complete but not yet executed
+  against the live table.
 
 ### `dashboard/` — Streamlit app
 
