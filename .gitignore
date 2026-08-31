@@ -5,6 +5,7 @@
 notebooks/drafts.ipynb
 
 
+
 # Python
 __pycache__/
 *.py[cod]
@@ -53,7 +54,14 @@ anaconda_projects/
 bigquery/instructions.json
 bigquery/bq_instructions.json
 
+# Local planning notes (not for GitHub)
+MODEL_IMPLEMENTATION.md
+MCP_POSSIBILITIES.md
+
 # Dashboard scratch / junk (not for GitHub)
 dash_junk/
 keys/
 
+rag_tests/
+
+drafts/

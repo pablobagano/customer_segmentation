@@ -3,13 +3,8 @@
 End-to-end customer segmentation pipeline built on the
 [Customer Personality Analysis](https://www.kaggle.com/datasets/imakash3011/customer-personality-analysis)
 dataset. The project covers exploratory analysis, RFM scoring with K-Means,
-synthetic data expansion for BigQuery, and an interactive Streamlit dashboard
+synthetic data expansion for BigQuery, and an interactive Next.js dashboard
 aimed at a business audience.
-
-## Streamlit Apps
-[Streamlit App for K-Means Segmentation](https://pablobagano-customersegmentation.streamlit.app/)
-
-Streamlit App For `Total_Spent` Predicition: Model under construction
 
 ## Pipeline
 
@@ -17,8 +12,9 @@ Streamlit App For `Total_Spent` Predicition: Model under construction
 Raw customer data → EDA & cleaning → RFM scoring (K-Means) → Segmentation
                                                     │
                                                     ├── XGBoost regression (predict Total_Spent)
-                                                    ├── Synthetic expansion → BigQuery ML
-                                                    └── Streamlit dashboard
+                                                    ├── Synthetic expansion → BigQuery
+                                                    │     └── score_raw_data_table.py → customer_segments table
+                                                    └── Next.js dashboard
 ```
 
 Each stage is self-contained in its own notebook so the pipeline can be rerun
@@ -28,9 +24,7 @@ end-to-end or picked up at any intermediate step.
 
 ```
 customer_segmentation/
-├── dashboard/            # Streamlit app (live)
-│   ├── app.py
-│   └── pages/            # Raw data · Cleaned data · Cluster explorer · Customer lookup
+├── dashboard/            # Next.js app (in development)
 ├── notebooks/            # Analysis and modeling notebooks
 │   ├── exploratory_analysis.ipynb
 │   ├── customer_kmeans.ipynb
@@ -100,39 +94,40 @@ from `bigquery/schemas/raw_data.json` and loads the synthetic parquet into
 it. The table is partitioned by month on `Dt_Customer` and clustered on
 `Marital_Status, Education`.
 
+## BigQuery tables
+
+- **`raw_data`** — 1M synthetic rows, partitioned by month on `Dt_Customer`,
+  clustered on `Marital_Status, Education`. Source of truth; never mutated.
+- **`customer_segments`** — output of `scripts/score_raw_data_table.py`.
+  Every row of `raw_data` scored with the trained K-Means models, producing
+  `RMF_Score` and `Segmentation`. Partitioned by month on `Dt_Customer`,
+  clustered on `Segmentation`. Join back to `raw_data` on `ID` for full
+  customer attributes.
+
 ## Dashboard
 
-A multi-page Streamlit dashboard lives in `dashboard/` — see the live link
-above. It translates the segmentation output into visualizations for a
-business audience:
+A Next.js dashboard (in development) will replace the previous Streamlit app.
+Data is fetched from BigQuery at build time and baked into the app as static
+JSON — zero runtime queries, instant page loads.
 
-- **Raw data explorer** — browse the original dataset with filters and
-  column views.
-- **Cleaned data** — demographics, spending, channels, and campaign
-  performance charts on the cleaned dataset.
-- **Cluster explorer** — interactive 2D/3D scatter of customers colored by
-  RFM segment.
+Pages planned:
+
+- **Overview** — KPIs and segment distribution across the full customer base.
+- **Demographics** — spending and behavior breakdowns by age, income,
+  education, and marital status.
+- **Cluster explorer** — interactive scatter of customers colored by RFM segment.
 - **Customer lookup** — find a customer by ID and see their RFM profile
   against their segment and the full population.
-
-Run it locally with:
-
-```bash
-pip install -r dashboard/requirements.txt
-streamlit run dashboard/app.py
-```
 
 ## Roadmap
 
 - [x] Exploratory data analysis and cleaning
 - [x] RFM scoring with K-Means
-- [x] Interactive Streamlit dashboard (raw data, cleaned data, cluster
-      explorer, customer lookup)
 - [x] Database expansion for scale testing (1M synthetic rows, uploaded to a
       partitioned + clustered BigQuery table)
-- [ ] Apply the trained K-Means models to `raw_data` at scale
-      (`scripts/score_raw_data_table.py` → a separate `customer_segments`
-      table; code-complete, not yet run against the live table)
+- [x] Apply the trained K-Means models to `raw_data` at scale
+      (`scripts/score_raw_data_table.py` → `customer_segments` table)
+- [ ] Next.js dashboard (replaces Streamlit)
 - [ ] XGBoost regression to predict `Total_Spent` for new customers
 - [ ] BigQuery ML pipeline (KMeans + XGBoost + segmentation SQL)
 
