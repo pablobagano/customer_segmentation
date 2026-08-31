@@ -28,18 +28,28 @@ end-to-end or picked up at any intermediate step.
 
 ```
 customer_segmentation/
-├── dashboard/            # Streamlit app (in progress)
+├── dashboard/            # Streamlit app (live)
+│   ├── app.py
+│   └── pages/            # Raw data · Cleaned data · Cluster explorer · Customer lookup
 ├── notebooks/            # Analysis and modeling notebooks
 │   ├── exploratory_analysis.ipynb
 │   ├── customer_kmeans.ipynb
 │   ├── database_expansion.ipynb
+│   ├── big_query_dataset.ipynb
 │   └── drafts.ipynb          (local-only, gitignored)
-├── data/                 # CSVs used and produced by the notebooks
+├── data/                 # CSVs/Parquet used and produced by the notebooks
 ├── models/               # Trained K-Means artefacts (.joblib)
 ├── src/                  # Shared Python helpers
-│   └── custom_functions.py
-├── bigquery/             # BigQuery pipeline instructions (gitignored)
+│   ├── custom_functions.py
+│   ├── big_query_functions.py   # synthetic data generation/validation
+│   ├── bq_table_creation.py     # BigQuery table creation (schema, partitioning, clustering)
+│   └── customer_scoring.py      # apply the trained K-Means models to a DataFrame (RFM scoring)
+├── scripts/              # One-off / re-runnable maintenance scripts
+│   ├── migrate_raw_data_partitioning.py
+│   └── score_raw_data_table.py  # scores raw_data at scale -> customer_segments table
+├── bigquery/             # BigQuery schemas + pipeline notes (some files gitignored)
 ├── requirements.txt      # Top-level dependencies
+├── pyrightconfig.json    # points the editor's type checker at .venv + src/
 ├── .gitignore
 └── README.md
 ```
@@ -80,28 +90,51 @@ combined into an `RMF_Score`, and assigned to a segment (`Inactive`,
 Value per segment. Produces `segmented_data.csv` and the three trained
 K-Means models in `models/`.
 
-**`database_expansion.ipynb`** — synthesizes hundreds of thousands of rows
-from the group means and standard deviations (`Marital_Status` × `Education`)
-of the cleaned data, preserving realistic variability. The expanded dataset
-is intended for upload to BigQuery to demonstrate the pipeline at scale.
+**`database_expansion.ipynb`** — synthesizes 1,000,000 rows from the group
+means and standard deviations (`Marital_Status` × `Education`) of the cleaned
+data, preserving realistic variability. Produces
+`data/synthetic_marketing_campaign.parquet`.
+
+**`big_query_dataset.ipynb`** — creates the `raw_data` BigQuery dataset/table
+from `bigquery/schemas/raw_data.json` and loads the synthetic parquet into
+it. The table is partitioned by month on `Dt_Customer` and clustered on
+`Marital_Status, Education`.
 
 ## Dashboard
 
-A Streamlit dashboard will live in `dashboard/`. The goal is to translate
-the technical output of the segmentation into clear, actionable visualizations
-for stakeholders — exploring segments, monitoring KPIs, and filtering by
-customer attributes without touching the underlying code. It will consume
-`data/segmented_data.csv` and the trained `models/*.joblib` files.
+A multi-page Streamlit dashboard lives in `dashboard/` — see the live link
+above. It translates the segmentation output into visualizations for a
+business audience:
+
+- **Raw data explorer** — browse the original dataset with filters and
+  column views.
+- **Cleaned data** — demographics, spending, channels, and campaign
+  performance charts on the cleaned dataset.
+- **Cluster explorer** — interactive 2D/3D scatter of customers colored by
+  RFM segment.
+- **Customer lookup** — find a customer by ID and see their RFM profile
+  against their segment and the full population.
+
+Run it locally with:
+
+```bash
+pip install -r dashboard/requirements.txt
+streamlit run dashboard/app.py
+```
 
 ## Roadmap
 
 - [x] Exploratory data analysis and cleaning
 - [x] RFM scoring with K-Means
-- [x] Dashboard For Clustering Segmentation
-- [x] Database expansion for scale testing
+- [x] Interactive Streamlit dashboard (raw data, cleaned data, cluster
+      explorer, customer lookup)
+- [x] Database expansion for scale testing (1M synthetic rows, uploaded to a
+      partitioned + clustered BigQuery table)
+- [ ] Apply the trained K-Means models to `raw_data` at scale
+      (`scripts/score_raw_data_table.py` → a separate `customer_segments`
+      table; code-complete, not yet run against the live table)
 - [ ] XGBoost regression to predict `Total_Spent` for new customers
 - [ ] BigQuery ML pipeline (KMeans + XGBoost + segmentation SQL)
-- [x] Streamlit dashboard
 
 ## Dataset
 
