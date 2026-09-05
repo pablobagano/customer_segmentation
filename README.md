@@ -3,8 +3,9 @@
 End-to-end customer segmentation pipeline built on the
 [Customer Personality Analysis](https://www.kaggle.com/datasets/imakash3011/customer-personality-analysis)
 dataset. The project covers exploratory analysis, RFM scoring with K-Means,
-synthetic data expansion for BigQuery, and an interactive Next.js dashboard
-aimed at a business audience.
+synthetic data expansion for BigQuery, and an interactive dashboard aimed at
+a business audience — live at
+[pablobagano.app/datalab/customer-segmentation](https://pablobagano.app/datalab/customer-segmentation).
 
 ## Pipeline
 
@@ -12,9 +13,11 @@ aimed at a business audience.
 Raw customer data → EDA & cleaning → RFM scoring (K-Means) → Segmentation
                                                     │
                                                     ├── XGBoost regression (predict Total_Spent)
-                                                    ├── Synthetic expansion → BigQuery
-                                                    │     └── score_raw_data_table.py → customer_segments table
-                                                    └── Next.js dashboard
+                                                    └── Synthetic expansion → BigQuery
+                                                          ├── score_raw_data_table.py → customer_segments table
+                                                          ├── create_materialized_views.py → mv_segment_* views
+                                                          └── export_dashboard_data.py → static JSON
+                                                                └── Next.js dashboard (pablobagano.app)
 ```
 
 Each stage is self-contained in its own notebook so the pipeline can be rerun
@@ -24,7 +27,8 @@ end-to-end or picked up at any intermediate step.
 
 ```
 customer_segmentation/
-├── dashboard/            # Next.js app (in development)
+├── dashboard/            # Streamlit app (superseded by the Next.js dashboard
+│                         #   at pablobagano.app — kept for local exploration)
 ├── notebooks/            # Analysis and modeling notebooks
 │   ├── exploratory_analysis.ipynb
 │   ├── customer_kmeans.ipynb
@@ -40,7 +44,10 @@ customer_segmentation/
 │   └── customer_scoring.py      # apply the trained K-Means models to a DataFrame (RFM scoring)
 ├── scripts/              # One-off / re-runnable maintenance scripts
 │   ├── migrate_raw_data_partitioning.py
-│   └── score_raw_data_table.py  # scores raw_data at scale -> customer_segments table
+│   ├── score_raw_data_table.py     # scores raw_data at scale -> customer_segments table
+│   ├── create_materialized_views.py  # builds the mv_segment_* BigQuery views
+│   └── export_dashboard_data.py    # exports the views + segmented_data.csv
+│                                    #   to static JSON for the Next.js dashboard
 ├── bigquery/             # BigQuery schemas + pipeline notes (some files gitignored)
 ├── requirements.txt      # Top-level dependencies
 ├── pyrightconfig.json    # points the editor's type checker at .venv + src/
@@ -103,21 +110,40 @@ it. The table is partitioned by month on `Dt_Customer` and clustered on
   `RMF_Score` and `Segmentation`. Partitioned by month on `Dt_Customer`,
   clustered on `Segmentation`. Join back to `raw_data` on `ID` for full
   customer attributes.
+- **`mv_segment_counts`, `mv_segment_metrics`, `mv_segment_demo`,
+  `mv_segment_spend`, `mv_segment_channels`, `mv_segment_campaigns`** — six
+  static materialized views (`scripts/create_materialized_views.py`),
+  pre-aggregating `customer_segments` (joined to `raw_data` where needed) by
+  `Segmentation` — segment sizes/RFM metrics, demographic breakdowns, product
+  spend, channel mix, and campaign acceptance. Recreated on demand, not
+  auto-refreshing; they're the source for the dashboard's segment-level data.
 
 ## Dashboard
 
-A Next.js dashboard (in development) will replace the previous Streamlit app.
-Data is fetched from BigQuery at build time and baked into the app as static
-JSON — zero runtime queries, instant page loads.
+Live at
+[pablobagano.app/datalab/customer-segmentation](https://pablobagano.app/datalab/customer-segmentation)
+— a Next.js app in a separate repo (`webcv_frontend`, part of the
+[pablobagano.app](https://pablobagano.app) portfolio site), replacing the
+original Streamlit app. `scripts/export_dashboard_data.py` exports the six
+materialized views above plus `data/segmented_data.csv` to static JSON,
+which is copied into `webcv_frontend` — no live BigQuery credentials or
+runtime queries in production, just static data and instant page loads.
 
-Pages planned:
+Pages:
 
-- **Overview** — KPIs and segment distribution across the full customer base.
-- **Demographics** — spending and behavior breakdowns by age, income,
-  education, and marital status.
-- **Cluster explorer** — interactive scatter of customers colored by RFM segment.
-- **Customer lookup** — find a customer by ID and see their RFM profile
-  against their segment and the full population.
+- **Customer Segmentation** (`/datalab/customer-segmentation`) — RFM
+  methodology, a 3D cluster view over the real 2,237-customer training set,
+  a per-segment deep-dive (personas, scorecards, demographics, spend/channel/
+  campaign breakdowns) and a segment comparison table + parallel-coordinates
+  chart — the latter two computed against the model re-scored at
+  1,000,000-row scale through the BigQuery pipeline above.
+- **Customer Lookup** (`/datalab/customer-segmentation/lookup`) — find a
+  real customer by ID and see their RFM profile against their segment and
+  population medians.
+
+The Streamlit app under `dashboard/` still works locally
+(`streamlit run dashboard/app.py`) for ad hoc exploration, but is no longer
+the deployed dashboard.
 
 ## Roadmap
 
@@ -127,7 +153,9 @@ Pages planned:
       partitioned + clustered BigQuery table)
 - [x] Apply the trained K-Means models to `raw_data` at scale
       (`scripts/score_raw_data_table.py` → `customer_segments` table)
-- [ ] Next.js dashboard (replaces Streamlit)
+- [x] Materialized views for segment-level BigQuery aggregates
+      (`scripts/create_materialized_views.py`)
+- [x] Next.js dashboard, live at pablobagano.app (replaces Streamlit)
 - [ ] XGBoost regression to predict `Total_Spent` for new customers
 - [ ] BigQuery ML pipeline (KMeans + XGBoost + segmentation SQL)
 
