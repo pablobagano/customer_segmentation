@@ -1,0 +1,19 @@
+[
+    {"name": "ID", "type": "INTEGER", "mode": "NULLABLE"},
+    {"name": "Dt_Customer", "type": "DATE", "mode": "NULLABLE"},
+    {"name": "Marital_Status", "type": "STRING", "mode": "NULLABLE"},
+    {"name": "Education", "type": "STRING", "mode": "NULLABLE"},
+    {"name": "Recency", "type": "INTEGER", "mode": "NULLABLE"},
+    {"name": "Total_Purchases", "type": "INTEGER", "mode": "NULLABLE"},
+    {"name": "Total_Spent", "type": "INTEGER", "mode": "NULLABLE"},
+    {"name": "Cluster_Recency", "type": "INTEGER", "mode": "NULLABLE"},
+    {"name": "Cluster_Frequency", "type": "INTEGER", "mode": "NULLABLE"},
+    {"name": "Cluster_Monetary", "type": "INTEGER", "mode": "NULLABLE"},
+    {"name": "Recency_Score", "type": "INTEGER", "mode": "NULLABLE"},
+    {"name": "Frequency_Score", "type": "INTEGER", "mode": "NULLABLE"},
+    {"name": "Monetary_Score", "type": "INTEGER", "mode": "NULLABLE"},
+    {"name": "RMF_Score", "type": "INTEGER", "mode": "NULLABLE"},
+    {"name": "Segmentation", "type": "STRING", "mode": "NULLABLE"},
+    {"name": "APV", "type": "FLOAT", "mode": "NULLABLE"}
+  ]
+  

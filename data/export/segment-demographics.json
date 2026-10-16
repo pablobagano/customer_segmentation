@@ -1,0 +1,940 @@
+{
+  "byAgeBand": [
+    {
+      "segment": "Inactive",
+      "ageBand": "18-34",
+      "customerCount": 590.0,
+      "avgTotalSpent": 137.21,
+      "avgIncome": 27351.53
+    },
+    {
+      "segment": "Inactive",
+      "ageBand": "35-49",
+      "customerCount": 3117.0,
+      "avgTotalSpent": 153.41,
+      "avgIncome": 33828.74
+    },
+    {
+      "segment": "Inactive",
+      "ageBand": "50-64",
+      "customerCount": 4313.0,
+      "avgTotalSpent": 180.07,
+      "avgIncome": 40914.1
+    },
+    {
+      "segment": "Inactive",
+      "ageBand": "65+",
+      "customerCount": 1854.0,
+      "avgTotalSpent": 196.54,
+      "avgIncome": 46502.92
+    },
+    {
+      "segment": "Loyal",
+      "ageBand": "18-34",
+      "customerCount": 6360.0,
+      "avgTotalSpent": 834.41,
+      "avgIncome": 52371.53
+    },
+    {
+      "segment": "Loyal",
+      "ageBand": "35-49",
+      "customerCount": 60702.0,
+      "avgTotalSpent": 842.75,
+      "avgIncome": 52431.37
+    },
+    {
+      "segment": "Loyal",
+      "ageBand": "50-64",
+      "customerCount": 137106.0,
+      "avgTotalSpent": 852.42,
+      "avgIncome": 53008.38
+    },
+    {
+      "segment": "Loyal",
+      "ageBand": "65+",
+      "customerCount": 80452.0,
+      "avgTotalSpent": 866.62,
+      "avgIncome": 53816.37
+    },
+    {
+      "segment": "Moderate",
+      "ageBand": "18-34",
+      "customerCount": 11705.0,
+      "avgTotalSpent": 640.18,
+      "avgIncome": 50257.5
+    },
+    {
+      "segment": "Moderate",
+      "ageBand": "35-49",
+      "customerCount": 106177.0,
+      "avgTotalSpent": 654.78,
+      "avgIncome": 51609.68
+    },
+    {
+      "segment": "Moderate",
+      "ageBand": "50-64",
+      "customerCount": 231784.0,
+      "avgTotalSpent": 667.7,
+      "avgIncome": 52475.26
+    },
+    {
+      "segment": "Moderate",
+      "ageBand": "65+",
+      "customerCount": 128119.0,
+      "avgTotalSpent": 674.45,
+      "avgIncome": 53358.13
+    },
+    {
+      "segment": "Occasional",
+      "ageBand": "18-34",
+      "customerCount": 6064.0,
+      "avgTotalSpent": 373.12,
+      "avgIncome": 42511.04
+    },
+    {
+      "segment": "Occasional",
+      "ageBand": "35-49",
+      "customerCount": 47171.0,
+      "avgTotalSpent": 425.41,
+      "avgIncome": 47093.13
+    },
+    {
+      "segment": "Occasional",
+      "ageBand": "50-64",
+      "customerCount": 92020.0,
+      "avgTotalSpent": 457.95,
+      "avgIncome": 50431.43
+    },
+    {
+      "segment": "Occasional",
+      "ageBand": "65+",
+      "customerCount": 47490.0,
+      "avgTotalSpent": 470.88,
+      "avgIncome": 52193.92
+    },
+    {
+      "segment": "Premium",
+      "ageBand": "18-34",
+      "customerCount": 702.0,
+      "avgTotalSpent": 1111.19,
+      "avgIncome": 52887.63
+    },
+    {
+      "segment": "Premium",
+      "ageBand": "35-49",
+      "customerCount": 6998.0,
+      "avgTotalSpent": 1130.63,
+      "avgIncome": 53782.96
+    },
+    {
+      "segment": "Premium",
+      "ageBand": "50-64",
+      "customerCount": 16574.0,
+      "avgTotalSpent": 1135.32,
+      "avgIncome": 53718.67
+    },
+    {
+      "segment": "Premium",
+      "ageBand": "65+",
+      "customerCount": 10702.0,
+      "avgTotalSpent": 1147.32,
+      "avgIncome": 54722.16
+    }
+  ],
+  "byIncomeBand": [
+    {
+      "segment": "Inactive",
+      "incomeBand": "100k+",
+      "customerCount": 79.0,
+      "avgTotalSpent": 215.94,
+      "avgIncome": 107359.7
+    },
+    {
+      "segment": "Inactive",
+      "incomeBand": "30k-50k",
+      "customerCount": 1959.0,
+      "avgTotalSpent": 209.86,
+      "avgIncome": 39709.96
+    },
+    {
+      "segment": "Inactive",
+      "incomeBand": "50k-70k",
+      "customerCount": 2003.0,
+      "avgTotalSpent": 223.79,
+      "avgIncome": 59380.06
+    },
+    {
+      "segment": "Inactive",
+      "incomeBand": "70k-100k",
+      "customerCount": 1080.0,
+      "avgTotalSpent": 223.17,
+      "avgIncome": 80219.37
+    },
+    {
+      "segment": "Inactive",
+      "incomeBand": "<30k",
+      "customerCount": 4753.0,
+      "avgTotalSpent": 122.6,
+      "avgIncome": 19442.9
+    },
+    {
+      "segment": "Loyal",
+      "incomeBand": "100k+",
+      "customerCount": 3735.0,
+      "avgTotalSpent": 876.61,
+      "avgIncome": 107762.64
+    },
+    {
+      "segment": "Loyal",
+      "incomeBand": "30k-50k",
+      "customerCount": 86617.0,
+      "avgTotalSpent": 850.47,
+      "avgIncome": 40986.61
+    },
+    {
+      "segment": "Loyal",
+      "incomeBand": "50k-70k",
+      "customerCount": 100015.0,
+      "avgTotalSpent": 855.65,
+      "avgIncome": 59499.07
+    },
+    {
+      "segment": "Loyal",
+      "incomeBand": "70k-100k",
+      "customerCount": 55534.0,
+      "avgTotalSpent": 863.37,
+      "avgIncome": 80196.78
+    },
+    {
+      "segment": "Loyal",
+      "incomeBand": "<30k",
+      "customerCount": 38719.0,
+      "avgTotalSpent": 841.81,
+      "avgIncome": 19527.76
+    },
+    {
+      "segment": "Moderate",
+      "incomeBand": "100k+",
+      "customerCount": 6104.0,
+      "avgTotalSpent": 685.83,
+      "avgIncome": 107438.43
+    },
+    {
+      "segment": "Moderate",
+      "incomeBand": "30k-50k",
+      "customerCount": 145948.0,
+      "avgTotalSpent": 666.83,
+      "avgIncome": 40927.4
+    },
+    {
+      "segment": "Moderate",
+      "incomeBand": "50k-70k",
+      "customerCount": 164343.0,
+      "avgTotalSpent": 672.77,
+      "avgIncome": 59445.03
+    },
+    {
+      "segment": "Moderate",
+      "incomeBand": "70k-100k",
+      "customerCount": 91011.0,
+      "avgTotalSpent": 677.0,
+      "avgIncome": 80222.14
+    },
+    {
+      "segment": "Moderate",
+      "incomeBand": "<30k",
+      "customerCount": 70379.0,
+      "avgTotalSpent": 632.3,
+      "avgIncome": 19431.81
+    },
+    {
+      "segment": "Occasional",
+      "incomeBand": "100k+",
+      "customerCount": 2192.0,
+      "avgTotalSpent": 487.27,
+      "avgIncome": 107623.65
+    },
+    {
+      "segment": "Occasional",
+      "incomeBand": "30k-50k",
+      "customerCount": 55953.0,
+      "avgTotalSpent": 473.48,
+      "avgIncome": 40777.1
+    },
+    {
+      "segment": "Occasional",
+      "incomeBand": "50k-70k",
+      "customerCount": 60841.0,
+      "avgTotalSpent": 481.46,
+      "avgIncome": 59436.25
+    },
+    {
+      "segment": "Occasional",
+      "incomeBand": "70k-100k",
+      "customerCount": 33483.0,
+      "avgTotalSpent": 481.72,
+      "avgIncome": 80208.04
+    },
+    {
+      "segment": "Occasional",
+      "incomeBand": "<30k",
+      "customerCount": 40276.0,
+      "avgTotalSpent": 343.88,
+      "avgIncome": 19349.69
+    },
+    {
+      "segment": "Premium",
+      "incomeBand": "100k+",
+      "customerCount": 497.0,
+      "avgTotalSpent": 1200.0,
+      "avgIncome": 108020.33
+    },
+    {
+      "segment": "Premium",
+      "incomeBand": "30k-50k",
+      "customerCount": 10520.0,
+      "avgTotalSpent": 1129.46,
+      "avgIncome": 41104.89
+    },
+    {
+      "segment": "Premium",
+      "incomeBand": "50k-70k",
+      "customerCount": 12413.0,
+      "avgTotalSpent": 1134.6,
+      "avgIncome": 59562.58
+    },
+    {
+      "segment": "Premium",
+      "incomeBand": "70k-100k",
+      "customerCount": 7187.0,
+      "avgTotalSpent": 1154.56,
+      "avgIncome": 80306.8
+    },
+    {
+      "segment": "Premium",
+      "incomeBand": "<30k",
+      "customerCount": 4359.0,
+      "avgTotalSpent": 1130.48,
+      "avgIncome": 19923.18
+    }
+  ],
+  "byMaritalStatus": [
+    {
+      "segment": "Inactive",
+      "maritalStatus": "Divorced",
+      "customerCount": 647.0,
+      "avgTotalSpent": 222.58,
+      "avgIncome": 52537.08
+    },
+    {
+      "segment": "Inactive",
+      "maritalStatus": "Married",
+      "customerCount": 3942.0,
+      "avgTotalSpent": 198.64,
+      "avgIncome": 40440.09
+    },
+    {
+      "segment": "Inactive",
+      "maritalStatus": "Single",
+      "customerCount": 2515.0,
+      "avgTotalSpent": 137.87,
+      "avgIncome": 33644.55
+    },
+    {
+      "segment": "Inactive",
+      "maritalStatus": "Together",
+      "customerCount": 2574.0,
+      "avgTotalSpent": 150.02,
+      "avgIncome": 38529.3
+    },
+    {
+      "segment": "Inactive",
+      "maritalStatus": "Widow",
+      "customerCount": 196.0,
+      "avgTotalSpent": 205.27,
+      "avgIncome": 36039.62
+    },
+    {
+      "segment": "Loyal",
+      "maritalStatus": "Divorced",
+      "customerCount": 29881.0,
+      "avgTotalSpent": 833.76,
+      "avgIncome": 53220.29
+    },
+    {
+      "segment": "Loyal",
+      "maritalStatus": "Married",
+      "customerCount": 109657.0,
+      "avgTotalSpent": 837.85,
+      "avgIncome": 52921.15
+    },
+    {
+      "segment": "Loyal",
+      "maritalStatus": "Single",
+      "customerCount": 60484.0,
+      "avgTotalSpent": 868.63,
+      "avgIncome": 52481.06
+    },
+    {
+      "segment": "Loyal",
+      "maritalStatus": "Together",
+      "customerCount": 72271.0,
+      "avgTotalSpent": 861.76,
+      "avgIncome": 53090.22
+    },
+    {
+      "segment": "Loyal",
+      "maritalStatus": "Widow",
+      "customerCount": 12327.0,
+      "avgTotalSpent": 928.8,
+      "avgIncome": 57481.64
+    },
+    {
+      "segment": "Moderate",
+      "maritalStatus": "Divorced",
+      "customerCount": 49732.0,
+      "avgTotalSpent": 662.51,
+      "avgIncome": 53135.09
+    },
+    {
+      "segment": "Moderate",
+      "maritalStatus": "Married",
+      "customerCount": 184202.0,
+      "avgTotalSpent": 647.99,
+      "avgIncome": 51988.52
+    },
+    {
+      "segment": "Moderate",
+      "maritalStatus": "Single",
+      "customerCount": 103352.0,
+      "avgTotalSpent": 677.75,
+      "avgIncome": 51969.38
+    },
+    {
+      "segment": "Moderate",
+      "maritalStatus": "Together",
+      "customerCount": 125485.0,
+      "avgTotalSpent": 675.46,
+      "avgIncome": 52837.22
+    },
+    {
+      "segment": "Moderate",
+      "maritalStatus": "Widow",
+      "customerCount": 15014.0,
+      "avgTotalSpent": 737.54,
+      "avgIncome": 56401.89
+    },
+    {
+      "segment": "Occasional",
+      "maritalStatus": "Divorced",
+      "customerCount": 19197.0,
+      "avgTotalSpent": 483.67,
+      "avgIncome": 52909.13
+    },
+    {
+      "segment": "Occasional",
+      "maritalStatus": "Married",
+      "customerCount": 74817.0,
+      "avgTotalSpent": 447.92,
+      "avgIncome": 49714.61
+    },
+    {
+      "segment": "Occasional",
+      "maritalStatus": "Single",
+      "customerCount": 43784.0,
+      "avgTotalSpent": 437.53,
+      "avgIncome": 48142.15
+    },
+    {
+      "segment": "Occasional",
+      "maritalStatus": "Together",
+      "customerCount": 50504.0,
+      "avgTotalSpent": 446.36,
+      "avgIncome": 49837.54
+    },
+    {
+      "segment": "Occasional",
+      "maritalStatus": "Widow",
+      "customerCount": 4443.0,
+      "avgTotalSpent": 525.83,
+      "avgIncome": 53693.77
+    },
+    {
+      "segment": "Premium",
+      "maritalStatus": "Divorced",
+      "customerCount": 3806.0,
+      "avgTotalSpent": 1097.36,
+      "avgIncome": 52948.97
+    },
+    {
+      "segment": "Premium",
+      "maritalStatus": "Married",
+      "customerCount": 13614.0,
+      "avgTotalSpent": 1136.7,
+      "avgIncome": 54418.99
+    },
+    {
+      "segment": "Premium",
+      "maritalStatus": "Single",
+      "customerCount": 7120.0,
+      "avgTotalSpent": 1149.57,
+      "avgIncome": 52625.41
+    },
+    {
+      "segment": "Premium",
+      "maritalStatus": "Together",
+      "customerCount": 7995.0,
+      "avgTotalSpent": 1129.55,
+      "avgIncome": 53906.15
+    },
+    {
+      "segment": "Premium",
+      "maritalStatus": "Widow",
+      "customerCount": 2441.0,
+      "avgTotalSpent": 1196.42,
+      "avgIncome": 57932.63
+    }
+  ],
+  "byEducation": [
+    {
+      "segment": "Inactive",
+      "education": "2n Cycle",
+      "customerCount": 1005.0,
+      "avgTotalSpent": 228.18,
+      "avgIncome": 48200.53
+    },
+    {
+      "segment": "Inactive",
+      "education": "Basic",
+      "customerCount": 4125.0,
+      "avgTotalSpent": 100.05,
+      "avgIncome": 20465.33
+    },
+    {
+      "segment": "Inactive",
+      "education": "Graduation",
+      "customerCount": 2712.0,
+      "avgTotalSpent": 230.32,
+      "avgIncome": 52129.16
+    },
+    {
+      "segment": "Inactive",
+      "education": "Master",
+      "customerCount": 972.0,
+      "avgTotalSpent": 216.9,
+      "avgIncome": 52530.75
+    },
+    {
+      "segment": "Inactive",
+      "education": "PhD",
+      "customerCount": 1060.0,
+      "avgTotalSpent": 210.09,
+      "avgIncome": 55627.64
+    },
+    {
+      "segment": "Loyal",
+      "education": "2n Cycle",
+      "customerCount": 20713.0,
+      "avgTotalSpent": 740.39,
+      "avgIncome": 48563.13
+    },
+    {
+      "segment": "Loyal",
+      "education": "Basic",
+      "customerCount": 38.0,
+      "avgTotalSpent": 617.66,
+      "avgIncome": 13482.28
+    },
+    {
+      "segment": "Loyal",
+      "education": "Graduation",
+      "customerCount": 142599.0,
+      "avgTotalSpent": 845.38,
+      "avgIncome": 52175.91
+    },
+    {
+      "segment": "Loyal",
+      "education": "Master",
+      "customerCount": 49838.0,
+      "avgTotalSpent": 850.71,
+      "avgIncome": 53052.53
+    },
+    {
+      "segment": "Loyal",
+      "education": "PhD",
+      "customerCount": 71432.0,
+      "avgTotalSpent": 906.45,
+      "avgIncome": 56312.42
+    },
+    {
+      "segment": "Moderate",
+      "education": "2n Cycle",
+      "customerCount": 44223.0,
+      "avgTotalSpent": 583.13,
+      "avgIncome": 47874.56
+    },
+    {
+      "segment": "Moderate",
+      "education": "Basic",
+      "customerCount": 4571.0,
+      "avgTotalSpent": 134.3,
+      "avgIncome": 20518.03
+    },
+    {
+      "segment": "Moderate",
+      "education": "Graduation",
+      "customerCount": 249943.0,
+      "avgTotalSpent": 682.17,
+      "avgIncome": 52254.55
+    },
+    {
+      "segment": "Moderate",
+      "education": "Master",
+      "customerCount": 79178.0,
+      "avgTotalSpent": 654.72,
+      "avgIncome": 52900.17
+    },
+    {
+      "segment": "Moderate",
+      "education": "PhD",
+      "customerCount": 99870.0,
+      "avgTotalSpent": 695.33,
+      "avgIncome": 56143.05
+    },
+    {
+      "segment": "Occasional",
+      "education": "2n Cycle",
+      "customerCount": 22250.0,
+      "avgTotalSpent": 447.5,
+      "avgIncome": 47053.8
+    },
+    {
+      "segment": "Occasional",
+      "education": "Basic",
+      "customerCount": 15405.0,
+      "avgTotalSpent": 103.34,
+      "avgIncome": 20334.57
+    },
+    {
+      "segment": "Occasional",
+      "education": "Graduation",
+      "customerCount": 93033.0,
+      "avgTotalSpent": 500.26,
+      "avgIncome": 52299.24
+    },
+    {
+      "segment": "Occasional",
+      "education": "Master",
+      "customerCount": 29022.0,
+      "avgTotalSpent": 456.2,
+      "avgIncome": 52689.39
+    },
+    {
+      "segment": "Occasional",
+      "education": "PhD",
+      "customerCount": 33035.0,
+      "avgTotalSpent": 469.3,
+      "avgIncome": 55810.46
+    },
+    {
+      "segment": "Premium",
+      "education": "2n Cycle",
+      "customerCount": 1662.0,
+      "avgTotalSpent": 1044.48,
+      "avgIncome": 50312.55
+    },
+    {
+      "segment": "Premium",
+      "education": "Graduation",
+      "customerCount": 15066.0,
+      "avgTotalSpent": 1095.68,
+      "avgIncome": 52515.83
+    },
+    {
+      "segment": "Premium",
+      "education": "Master",
+      "customerCount": 6390.0,
+      "avgTotalSpent": 1169.27,
+      "avgIncome": 53852.12
+    },
+    {
+      "segment": "Premium",
+      "education": "PhD",
+      "customerCount": 11858.0,
+      "avgTotalSpent": 1186.76,
+      "avgIncome": 56546.8
+    }
+  ],
+  "byHousehold": [
+    {
+      "segment": "Inactive",
+      "kidhome": 0,
+      "teenhome": 0,
+      "customerCount": 3047
+    },
+    {
+      "segment": "Inactive",
+      "kidhome": 0,
+      "teenhome": 1,
+      "customerCount": 1708
+    },
+    {
+      "segment": "Inactive",
+      "kidhome": 0,
+      "teenhome": 2,
+      "customerCount": 75
+    },
+    {
+      "segment": "Inactive",
+      "kidhome": 1,
+      "teenhome": 0,
+      "customerCount": 3570
+    },
+    {
+      "segment": "Inactive",
+      "kidhome": 1,
+      "teenhome": 1,
+      "customerCount": 1285
+    },
+    {
+      "segment": "Inactive",
+      "kidhome": 1,
+      "teenhome": 2,
+      "customerCount": 63
+    },
+    {
+      "segment": "Inactive",
+      "kidhome": 2,
+      "teenhome": 0,
+      "customerCount": 73
+    },
+    {
+      "segment": "Inactive",
+      "kidhome": 2,
+      "teenhome": 1,
+      "customerCount": 48
+    },
+    {
+      "segment": "Inactive",
+      "kidhome": 2,
+      "teenhome": 2,
+      "customerCount": 5
+    },
+    {
+      "segment": "Loyal",
+      "kidhome": 0,
+      "teenhome": 0,
+      "customerCount": 83657
+    },
+    {
+      "segment": "Loyal",
+      "kidhome": 0,
+      "teenhome": 1,
+      "customerCount": 79634
+    },
+    {
+      "segment": "Loyal",
+      "kidhome": 0,
+      "teenhome": 2,
+      "customerCount": 4126
+    },
+    {
+      "segment": "Loyal",
+      "kidhome": 1,
+      "teenhome": 0,
+      "customerCount": 56156
+    },
+    {
+      "segment": "Loyal",
+      "kidhome": 1,
+      "teenhome": 1,
+      "customerCount": 51958
+    },
+    {
+      "segment": "Loyal",
+      "kidhome": 1,
+      "teenhome": 2,
+      "customerCount": 2706
+    },
+    {
+      "segment": "Loyal",
+      "kidhome": 2,
+      "teenhome": 0,
+      "customerCount": 3209
+    },
+    {
+      "segment": "Loyal",
+      "kidhome": 2,
+      "teenhome": 1,
+      "customerCount": 3003
+    },
+    {
+      "segment": "Loyal",
+      "kidhome": 2,
+      "teenhome": 2,
+      "customerCount": 171
+    },
+    {
+      "segment": "Moderate",
+      "kidhome": 0,
+      "teenhome": 0,
+      "customerCount": 140503
+    },
+    {
+      "segment": "Moderate",
+      "kidhome": 0,
+      "teenhome": 1,
+      "customerCount": 129830
+    },
+    {
+      "segment": "Moderate",
+      "kidhome": 0,
+      "teenhome": 2,
+      "customerCount": 6482
+    },
+    {
+      "segment": "Moderate",
+      "kidhome": 1,
+      "teenhome": 0,
+      "customerCount": 99122
+    },
+    {
+      "segment": "Moderate",
+      "kidhome": 1,
+      "teenhome": 1,
+      "customerCount": 87333
+    },
+    {
+      "segment": "Moderate",
+      "kidhome": 1,
+      "teenhome": 2,
+      "customerCount": 4348
+    },
+    {
+      "segment": "Moderate",
+      "kidhome": 2,
+      "teenhome": 0,
+      "customerCount": 5192
+    },
+    {
+      "segment": "Moderate",
+      "kidhome": 2,
+      "teenhome": 1,
+      "customerCount": 4702
+    },
+    {
+      "segment": "Moderate",
+      "kidhome": 2,
+      "teenhome": 2,
+      "customerCount": 273
+    },
+    {
+      "segment": "Occasional",
+      "kidhome": 0,
+      "teenhome": 0,
+      "customerCount": 57416
+    },
+    {
+      "segment": "Occasional",
+      "kidhome": 0,
+      "teenhome": 1,
+      "customerCount": 47953
+    },
+    {
+      "segment": "Occasional",
+      "kidhome": 0,
+      "teenhome": 2,
+      "customerCount": 2373
+    },
+    {
+      "segment": "Occasional",
+      "kidhome": 1,
+      "teenhome": 0,
+      "customerCount": 45768
+    },
+    {
+      "segment": "Occasional",
+      "kidhome": 1,
+      "teenhome": 1,
+      "customerCount": 33786
+    },
+    {
+      "segment": "Occasional",
+      "kidhome": 1,
+      "teenhome": 2,
+      "customerCount": 1570
+    },
+    {
+      "segment": "Occasional",
+      "kidhome": 2,
+      "teenhome": 0,
+      "customerCount": 1961
+    },
+    {
+      "segment": "Occasional",
+      "kidhome": 2,
+      "teenhome": 1,
+      "customerCount": 1820
+    },
+    {
+      "segment": "Occasional",
+      "kidhome": 2,
+      "teenhome": 2,
+      "customerCount": 98
+    },
+    {
+      "segment": "Premium",
+      "kidhome": 0,
+      "teenhome": 0,
+      "customerCount": 10145
+    },
+    {
+      "segment": "Premium",
+      "kidhome": 0,
+      "teenhome": 1,
+      "customerCount": 10214
+    },
+    {
+      "segment": "Premium",
+      "kidhome": 0,
+      "teenhome": 2,
+      "customerCount": 583
+    },
+    {
+      "segment": "Premium",
+      "kidhome": 1,
+      "teenhome": 0,
+      "customerCount": 6571
+    },
+    {
+      "segment": "Premium",
+      "kidhome": 1,
+      "teenhome": 1,
+      "customerCount": 6336
+    },
+    {
+      "segment": "Premium",
+      "kidhome": 1,
+      "teenhome": 2,
+      "customerCount": 363
+    },
+    {
+      "segment": "Premium",
+      "kidhome": 2,
+      "teenhome": 0,
+      "customerCount": 408
+    },
+    {
+      "segment": "Premium",
+      "kidhome": 2,
+      "teenhome": 1,
+      "customerCount": 341
+    },
+    {
+      "segment": "Premium",
+      "kidhome": 2,
+      "teenhome": 2,
+      "customerCount": 15
+    }
+  ]
+}
