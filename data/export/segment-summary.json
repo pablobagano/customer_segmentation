@@ -1,0 +1,190 @@
+{
+  "generatedAt": "2026-09-05T00:43:30.191325+00:00",
+  "segments": [
+    {
+      "segment": "Inactive",
+      "customerCount": 9874,
+      "pctOfTotal": 0.99,
+      "avgRmfScore": 0.0,
+      "avgRecencyScore": 0.0,
+      "avgFrequencyScore": 0.0,
+      "avgMonetaryScore": 0.0,
+      "avgRecencyDays": 85.3,
+      "avgTotalPurchases": 7.5,
+      "avgTotalSpent": 172.19,
+      "avgApv": 25.28,
+      "spend": {
+        "avgWines": 31.26,
+        "avgFruits": 21.89,
+        "avgMeat": 33.93,
+        "avgFish": 29.48,
+        "avgSweets": 22.07,
+        "avgGold": 33.56
+      },
+      "channels": {
+        "avgWebPurchases": 1.93,
+        "avgCatalogPurchases": 1.08,
+        "avgStorePurchases": 2.9,
+        "avgDealsPurchases": 1.55,
+        "avgWebVisitsMonth": 5.83
+      },
+      "campaigns": {
+        "acceptanceRateCmp1": 0.0411,
+        "acceptanceRateCmp2": 0.0078,
+        "acceptanceRateCmp3": 0.0901,
+        "acceptanceRateCmp4": 0.0415,
+        "acceptanceRateCmp5": 0.0428,
+        "acceptanceRateLastCmp": 0.1007,
+        "complaintRate": 0.0055
+      }
+    },
+    {
+      "segment": "Occasional",
+      "customerCount": 192745,
+      "pctOfTotal": 19.27,
+      "avgRmfScore": 1.73,
+      "avgRecencyScore": 0.5,
+      "avgFrequencyScore": 0.6,
+      "avgMonetaryScore": 0.63,
+      "avgRecencyDays": 72.3,
+      "avgTotalPurchases": 11.6,
+      "avgTotalSpent": 450.51,
+      "avgApv": 47.27,
+      "spend": {
+        "avgWines": 178.42,
+        "avgFruits": 29.49,
+        "avgMeat": 126.35,
+        "avgFish": 40.58,
+        "avgSweets": 30.63,
+        "avgGold": 45.03
+      },
+      "channels": {
+        "avgWebPurchases": 3.06,
+        "avgCatalogPurchases": 2.12,
+        "avgStorePurchases": 4.53,
+        "avgDealsPurchases": 1.91,
+        "avgWebVisitsMonth": 5.19
+      },
+      "campaigns": {
+        "acceptanceRateCmp1": 0.0603,
+        "acceptanceRateCmp2": 0.0118,
+        "acceptanceRateCmp3": 0.0769,
+        "acceptanceRateCmp4": 0.0667,
+        "acceptanceRateCmp5": 0.0659,
+        "acceptanceRateLastCmp": 0.1365,
+        "complaintRate": 0.0093
+      }
+    },
+    {
+      "segment": "Moderate",
+      "customerCount": 477785,
+      "pctOfTotal": 47.78,
+      "avgRmfScore": 3.52,
+      "avgRecencyScore": 1.24,
+      "avgFrequencyScore": 1.16,
+      "avgMonetaryScore": 1.13,
+      "avgRecencyDays": 53.1,
+      "avgTotalPurchases": 15.1,
+      "avgTotalSpent": 665.97,
+      "avgApv": 51.98,
+      "spend": {
+        "avgWines": 314.27,
+        "avgFruits": 32.31,
+        "avgMeat": 190.89,
+        "avgFish": 45.25,
+        "avgSweets": 33.32,
+        "avgGold": 49.92
+      },
+      "channels": {
+        "avgWebPurchases": 4.01,
+        "avgCatalogPurchases": 3.0,
+        "avgStorePurchases": 5.79,
+        "avgDealsPurchases": 2.33,
+        "avgWebVisitsMonth": 5.08
+      },
+      "campaigns": {
+        "acceptanceRateCmp1": 0.0649,
+        "acceptanceRateCmp2": 0.0133,
+        "acceptanceRateCmp3": 0.072,
+        "acceptanceRateCmp4": 0.0747,
+        "acceptanceRateCmp5": 0.0735,
+        "acceptanceRateLastCmp": 0.149,
+        "complaintRate": 0.0094
+      }
+    },
+    {
+      "segment": "Loyal",
+      "customerCount": 284620,
+      "pctOfTotal": 28.46,
+      "avgRmfScore": 5.34,
+      "avgRecencyScore": 2.16,
+      "avgFrequencyScore": 1.64,
+      "avgMonetaryScore": 1.54,
+      "avgRecencyDays": 30.0,
+      "avgTotalPurchases": 18.1,
+      "avgTotalSpent": 853.97,
+      "avgApv": 53.24,
+      "spend": {
+        "avgWines": 444.45,
+        "avgFruits": 33.53,
+        "avgMeat": 241.76,
+        "avgFish": 47.59,
+        "avgSweets": 34.43,
+        "avgGold": 52.21
+      },
+      "channels": {
+        "avgWebPurchases": 4.85,
+        "avgCatalogPurchases": 3.81,
+        "avgStorePurchases": 6.75,
+        "avgDealsPurchases": 2.72,
+        "avgWebVisitsMonth": 5.07
+      },
+      "campaigns": {
+        "acceptanceRateCmp1": 0.0644,
+        "acceptanceRateCmp2": 0.0145,
+        "acceptanceRateCmp3": 0.0722,
+        "acceptanceRateCmp4": 0.0799,
+        "acceptanceRateCmp5": 0.0775,
+        "acceptanceRateLastCmp": 0.1584,
+        "complaintRate": 0.0086
+      }
+    },
+    {
+      "segment": "Premium",
+      "customerCount": 34976,
+      "pctOfTotal": 3.5,
+      "avgRmfScore": 7.16,
+      "avgRecencyScore": 2.74,
+      "avgFrequencyScore": 2.31,
+      "avgMonetaryScore": 2.12,
+      "avgRecencyDays": 15.6,
+      "avgTotalPurchases": 22.4,
+      "avgTotalSpent": 1137.57,
+      "avgApv": 54.28,
+      "spend": {
+        "avgWines": 650.15,
+        "avgFruits": 34.48,
+        "avgMeat": 313.88,
+        "avgFish": 49.57,
+        "avgSweets": 35.24,
+        "avgGold": 54.25
+      },
+      "channels": {
+        "avgWebPurchases": 6.04,
+        "avgCatalogPurchases": 5.07,
+        "avgStorePurchases": 8.01,
+        "avgDealsPurchases": 3.3,
+        "avgWebVisitsMonth": 5.09
+      },
+      "campaigns": {
+        "acceptanceRateCmp1": 0.0676,
+        "acceptanceRateCmp2": 0.0163,
+        "acceptanceRateCmp3": 0.066,
+        "acceptanceRateCmp4": 0.0874,
+        "acceptanceRateCmp5": 0.0845,
+        "acceptanceRateLastCmp": 0.1719,
+        "complaintRate": 0.0071
+      }
+    }
+  ]
+}
